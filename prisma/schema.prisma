@@ -115,7 +115,7 @@ model Professionals {
   movie     Movie[]
 }
 
-model actorContent {
+model ActorContent {
   id        String   @id @default(cuid())
   actorId   String
   contentId String
