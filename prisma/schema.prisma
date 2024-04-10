@@ -107,8 +107,6 @@ model Professionals {
   industry  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  tvshow    Tvshow[]
-  movie     Movie[]
 }
 
 model ActorContent {
@@ -125,5 +123,7 @@ model LikedContent {
   contentId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  @@unique([userId, contentId])
   Content   Content  @relation(fields: [contentId], references: [id])
+  @@index([userId])
 }

@@ -10,10 +10,10 @@ export class MyfavouritelistController {
   async getFavouriteList(
     @Query('pageNo') pageNo: number,
     @Query('pageSize') pageSize: number,
-    @Query('email') email: string,
+    @Query('userId') userId: string,
   ) {
     return this.myfavouritelistSerivce.getFavouriteList(
-      email,
+      userId,
       pageNo,
       pageSize,
     );

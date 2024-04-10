@@ -8,6 +8,9 @@ export class UserDao {
   async createMany(data: Prisma.UserCreateManyInput[]) {
     return await this.prismaService.user.createMany({ data });
   }
+  async getUser(email: string) {
+    return await this.prismaService.user.findFirst({ where: { email } });
+  }
   async getMany() {
     return await this.prismaService.user.findMany({});
   }

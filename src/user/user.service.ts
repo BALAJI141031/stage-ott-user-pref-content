@@ -8,7 +8,7 @@ export class UserService {
   async adduser() {
     try {
       const users: Prisma.UserCreateManyInput[] = [];
-      for (let i = 0; i < 50; i++) {
+      for (let i = 0; i < 5; i++) {
         users.push({
           email: faker.internet.email(),
           name: faker.person.fullName(),
@@ -26,7 +26,7 @@ export class UserService {
   }
   async addProfessional() {
     const users: Prisma.ProfessionalsCreateManyInput[] = [];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 5; i++) {
       users.push({
         birthDate: '15/10/1999',
         name: faker.person.fullName(),

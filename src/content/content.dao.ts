@@ -9,6 +9,20 @@ export class ContentDao {
     const resp = await this.prismaService.content.create({ data });
   }
 
+  async getMovies() {
+    return await this.prismaService.content.findMany({
+      where: { type: 'MOVIE' },
+      include: { Movie: true },
+    });
+  }
+
+  async getTvShows() {
+    return await this.prismaService.content.findMany({
+      where: { type: 'TVSHOW' },
+      include: { Tvshow: true },
+    });
+  }
+
   async getDirector() {
     return await this.prismaService.professionals.findFirstOrThrow({});
   }

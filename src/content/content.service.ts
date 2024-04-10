@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { Injectable } from '@nestjs/common';
-import { Prisma, contentType } from '@prisma/client';
+import { contentType } from '@prisma/client';
 import { ContentDao } from './content.dao';
 
 @Injectable()
@@ -8,7 +8,7 @@ export class ContentService {
   constructor(private readonly contentDao: ContentDao) {}
   async episodes() {
     try {
-      for (let i = 0; i < 50; i++) {
+      for (let i = 0; i < 5; i++) {
         const resp = await this.contentDao.createMany({
           title: faker.music.songName(),
           description: faker.lorem.lines({ min: 1, max: 3 }),
@@ -30,7 +30,7 @@ export class ContentService {
   }
   async movies() {
     try {
-      for (let i = 0; i < 50; i++) {
+      for (let i = 0; i < 5; i++) {
         const resp = await this.contentDao.createMany({
           title: faker.music.songName(),
           description: faker.lorem.lines({ min: 1, max: 3 }),
@@ -45,5 +45,11 @@ export class ContentService {
     } catch (error) {
       console.log(error, 'error----------->');
     }
+  }
+  async getmovies() {
+    return await this.contentDao.getMovies();
+  }
+  async getTvShows() {
+    return await this.contentDao.getTvShows();
   }
 }
