@@ -86,9 +86,7 @@ model Movie {
   contentId       String
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
-  content         Content        @relation(fields: [contentId], references: [id])
-  Professionals   Professionals? @relation(fields: [professionalsId], references: [id])
-  professionalsId String?
+  content         Content?       @relation(fields: [contentId], references: [id])
 }
 
 model Tvshow {
@@ -99,9 +97,7 @@ model Tvshow {
   contentId       String
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
-  content         Content        @relation(fields: [contentId], references: [id])
-  Professionals   Professionals? @relation(fields: [professionalsId], references: [id])
-  professionalsId String?
+  content         Content?       @relation(fields: [contentId], references: [id])
 }
 
 model Professionals {
