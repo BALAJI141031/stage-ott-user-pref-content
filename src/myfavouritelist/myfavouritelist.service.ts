@@ -30,7 +30,7 @@ export class MyfavouritelistService {
         contentId,
         userId: user.id,
       }));
-      await this.myFavouriteListDao.createMany(query);
+      return await this.myFavouriteListDao.createMany(query);
     } catch (error) {
       throw error;
     }

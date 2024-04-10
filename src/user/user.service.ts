@@ -14,7 +14,7 @@ export class UserService {
           name: faker.person.fullName(),
         });
       }
-      await this.userDao.createMany(users);
+      return await this.userDao.createMany(users);
     } catch (error) {}
   }
   async getUsers() {
@@ -33,6 +33,6 @@ export class UserService {
         industry: 'Bollywood',
       });
     }
-    await this.userDao.createManyProfessionals(users);
+    return await this.userDao.createManyProfessionals(users);
   }
 }

@@ -22,8 +22,8 @@ export class ContentService {
             },
           },
         });
-        console.log(resp);
       }
+      return 'success';
     } catch (error) {
       console.log(error, 'error----------->');
     }
@@ -40,8 +40,8 @@ export class ContentService {
             create: { directorId: (await this.contentDao.getDirector()).id },
           },
         });
-        console.log(resp);
       }
+      return 'success';
     } catch (error) {
       console.log(error, 'error----------->');
     }
