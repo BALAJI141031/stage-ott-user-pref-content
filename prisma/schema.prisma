@@ -1,0 +1,133 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum GenereType {
+  ACTION
+  COMEDY
+  DRAMA
+  FANTASY
+  HORROR
+  ROMANCE
+  SCIFI
+}
+
+enum contentType {
+  MOVIE
+  TVSHOW
+}
+
+model User {
+  id           String         @id @default(cuid())
+  name         String
+  email        String         @unique
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  preferences  Preferences[]
+  WatchHistory WatchHistory[]
+}
+
+model Preferences {
+  id        String   @id @default(cuid())
+  userId    String
+  genereId  String
+  liked     Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Genre {
+  id        String     @id @default(cuid())
+  type      GenereType
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model WatchHistory {
+  id        String   @id @default(cuid())
+  contentId String
+  rating    Decimal
+  userId    String
+  watchedOn DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  content   Content  @relation(fields: [contentId], references: [id])
+}
+
+model Content {
+  id           String         @id @default(cuid())
+  title        String
+  description  String
+  releaseDate  DateTime
+  type         contentType
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  likedContent LikedContent[]
+  WatchHistory WatchHistory[]
+  Movie        Movie[]
+  Tvshow       Tvshow[]
+}
+
+model Movie {
+  id              String         @id @default(cuid())
+  directorId      String
+  contentId       String
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  content         Content        @relation(fields: [contentId], references: [id])
+  Professionals   Professionals? @relation(fields: [professionalsId], references: [id])
+  professionalsId String?
+}
+
+model Tvshow {
+  id              String         @id @default(cuid())
+  episodeNumber   Int
+  seasonNumber    Int
+  directorId      String
+  contentId       String
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  content         Content        @relation(fields: [contentId], references: [id])
+  Professionals   Professionals? @relation(fields: [professionalsId], references: [id])
+  professionalsId String?
+}
+
+model Professionals {
+  id        String   @id @default(cuid())
+  name      String
+  birthDate String
+  industry  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  tvshow    Tvshow[]
+  movie     Movie[]
+}
+
+model actorContent {
+  id        String   @id @default(cuid())
+  actorId   String
+  contentId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LikedContent {
+  id        String   @id @default(cuid())
+  userId    String
+  contentId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Content   Content  @relation(fields: [contentId], references: [id])
+}
